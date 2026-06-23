@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="420" viewBox="0 0 800 420" font-family="-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif">
+  <rect width="800" height="420" rx="14" fill="#0d1117"/>
+  <text x="32" y="50" fill="#e6edf3" font-size="28" font-weight="700">DriftGuard</text>
+  <text x="32" y="76" fill="#8b949e" font-size="15">Self-healing MLOps: detect drift, retrain, validate, promote or roll back</text>
+  <rect x="600" y="32" width="168" height="26" rx="13" fill="#23863622"/>
+  <circle cx="618" cy="45" r="5" fill="#3fb950"/>
+  <text x="630" y="50" fill="#3fb950" font-size="13" font-weight="600">0 human interventions</text>
+
+  <!-- chart card -->
+  <rect x="32" y="96" width="736" height="224" rx="10" fill="#161b22" stroke="#30363d"/>
+  <text x="48" y="120" fill="#e6edf3" font-size="14" font-weight="600">RMSE over time</text>
+  <text x="48" y="138" fill="#8b949e" font-size="11">RMSE</text>
+
+  <!-- threshold -->
+  <line x1="60" y1="203.6" x2="740" y2="203.6" stroke="#d29922" stroke-width="1.5" stroke-dasharray="6 5"/>
+  <text x="690" y="198" fill="#d29922" font-size="11">threshold</text>
+  <!-- drift marker -->
+  <line x1="321.5" y1="150" x2="321.5" y2="300" stroke="#f85149" stroke-width="1.5"/>
+  <text x="300" y="146" fill="#f85149" font-size="11">drift injected</text>
+
+  <!-- series -->
+  <polyline fill="none" stroke="#3fb950" stroke-width="2.5" points="60,222.9 112.3,220.3 164.6,225.4 216.9,222.9 269.2,220.3 321.5,222.9"/>
+  <polyline fill="none" stroke="#f85149" stroke-width="2.5" points="321.5,222.9 373.8,192 426.2,156 478.5,135.4 530.8,140.6"/>
+  <polyline fill="none" stroke="#3fb950" stroke-width="2.5" points="530.8,140.6 583.1,197.1 635.4,212.6 687.7,217.7 740,220.3"/>
+  <g fill="#3fb950">
+    <circle cx="60" cy="222.9" r="3.5"/><circle cx="112.3" cy="220.3" r="3.5"/><circle cx="164.6" cy="225.4" r="3.5"/><circle cx="216.9" cy="222.9" r="3.5"/><circle cx="269.2" cy="220.3" r="3.5"/><circle cx="321.5" cy="222.9" r="3.5"/>
+    <circle cx="583.1" cy="197.1" r="3.5"/><circle cx="635.4" cy="212.6" r="3.5"/><circle cx="687.7" cy="217.7" r="3.5"/><circle cx="740" cy="220.3" r="3.5"/>
+  </g>
+  <g fill="#f85149">
+    <circle cx="373.8" cy="192" r="3.5"/><circle cx="426.2" cy="156" r="3.5"/><circle cx="478.5" cy="135.4" r="4.5"/><circle cx="530.8" cy="140.6" r="3.5"/>
+  </g>
+  <text x="455" y="125" fill="#f85149" font-size="11">drift detected</text>
+  <text x="560" y="128" fill="#3fb950" font-size="11">auto-retrain &amp; recover</text>
+  <text x="730" y="312" fill="#8b949e" font-size="11">step</text>
+
+  <!-- metric tiles -->
+  <g>
+    <text x="48" y="346" fill="#8b949e" font-size="11">DETECTION LEAD</text><text x="48" y="372" fill="#e6edf3" font-size="20" font-weight="700">0 steps</text>
+    <text x="208" y="346" fill="#8b949e" font-size="11">RECOVERY</text><text x="208" y="372" fill="#e6edf3" font-size="20" font-weight="700">5 steps</text>
+    <text x="368" y="346" fill="#8b949e" font-size="11">PERF RETAINED</text><text x="368" y="372" fill="#3fb950" font-size="20" font-weight="700">88%</text>
+    <text x="548" y="346" fill="#8b949e" font-size="11">INTERVENTIONS</text><text x="548" y="372" fill="#3fb950" font-size="20" font-weight="700">0</text>
+  </g>
+
+  <text x="400" y="408" fill="#58a6ff" font-size="14" font-weight="600" text-anchor="middle">Click to open the live demo — replay the drift event and watch the model self-heal</text>
+</svg>

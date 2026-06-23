@@ -54,7 +54,9 @@
 </div>
 <script>
 let DATA=null;
-fetch('../results/timeline.json').then(r=>r.json()).then(d=>{DATA=d;init()}).catch(()=>{init()});
+// Pages publishes only the docs/ folder, so the timeline is bundled alongside
+// this page (docs/timeline.json, kept in sync with ../results/timeline.json).
+fetch('./timeline.json').then(r=>r.json()).then(d=>{DATA=d;init()}).catch(()=>{init()});
 function init(){
   if(!DATA){document.getElementById('metrics').innerHTML='<div class="sub">results/timeline.json not found.</div>';return}
   const s=DATA.summary;

@@ -20,8 +20,11 @@
 </p>
 
 <p align="center">
-  <!-- Record a 10–15s GIF: press "Inject drift & run" and watch RMSE spike then self-heal. Save to docs/demo.gif -->
-  <img src="docs/demo.gif" alt="DriftGuard self-healing demo" width="760">
+  <a href="https://maxmilliamokafor.github.io/driftguard/">
+    <img src="docs/preview.svg" alt="DriftGuard self-healing demo preview — click to open" width="760">
+  </a>
+  <br>
+  <em><a href="https://maxmilliamokafor.github.io/driftguard/">▶ Open the live demo</a> — replay the drift event and watch the model self-heal.</em>
 </p>
 
 ---
@@ -144,11 +147,12 @@ GitHub Actions runs ruff + black + pytest + a self-heal smoke run on every push.
 
 A self-contained demo lives in [`docs/index.html`](docs/index.html) and is served
 free via GitHub Pages at **https://maxmilliamokafor.github.io/driftguard/** — the link
-to put on a CV. It runs in the browser with no backend.
+to put on a CV. It runs entirely in the browser with no backend.
 
-**Enable it once:** either the included workflow `.github/workflows/pages.yml`
-deploys it automatically on push (repo *Settings → Pages → Source: GitHub Actions*),
-or set *Settings → Pages → Source: Deploy from a branch → `main` / `/docs`*.
+**Turn it on once (≈20 s):** open the repo's *Settings → Pages → Build and
+deployment*, set **Source: Deploy from a branch**, choose branch **`main`** and
+folder **`/docs`**, then click **Save**. GitHub publishes the page within a minute —
+no workflow, no build step.
 
 ## 📜 License
 

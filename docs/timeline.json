@@ -1,0 +1,157 @@
+{
+  "summary": {
+    "baseline_rmse": 1.2178,
+    "drift_injected_step": 10,
+    "drift_detected_step": 10,
+    "recovered_step": 10,
+    "detection_lead_time": 0,
+    "recovery_time": 0,
+    "rmse_after_recovery": 1.3836,
+    "performance_retained_pct": 88.0,
+    "human_interventions": 0,
+    "n_versions": 3
+  },
+  "series": [
+    {
+      "step": 0,
+      "rmse": 1.218,
+      "state": "baseline"
+    },
+    {
+      "step": 0,
+      "rmse": 1.189,
+      "state": "ok"
+    },
+    {
+      "step": 1,
+      "rmse": 1.188,
+      "state": "ok"
+    },
+    {
+      "step": 2,
+      "rmse": 1.139,
+      "state": "ok"
+    },
+    {
+      "step": 3,
+      "rmse": 1.167,
+      "state": "ok"
+    },
+    {
+      "step": 4,
+      "rmse": 1.222,
+      "state": "ok"
+    },
+    {
+      "step": 5,
+      "rmse": 1.237,
+      "state": "ok"
+    },
+    {
+      "step": 6,
+      "rmse": 1.269,
+      "state": "ok"
+    },
+    {
+      "step": 7,
+      "rmse": 1.2,
+      "state": "ok"
+    },
+    {
+      "step": 8,
+      "rmse": 1.239,
+      "state": "ok"
+    },
+    {
+      "step": 9,
+      "rmse": 1.163,
+      "state": "ok"
+    },
+    {
+      "step": 10,
+      "rmse": 6.381,
+      "state": "drift_detected"
+    },
+    {
+      "step": 11,
+      "rmse": 1.374,
+      "state": "ok"
+    },
+    {
+      "step": 12,
+      "rmse": 1.403,
+      "state": "ok"
+    },
+    {
+      "step": 13,
+      "rmse": 1.39,
+      "state": "ok"
+    },
+    {
+      "step": 14,
+      "rmse": 1.393,
+      "state": "ok"
+    },
+    {
+      "step": 15,
+      "rmse": 1.418,
+      "state": "ok"
+    },
+    {
+      "step": 16,
+      "rmse": 1.51,
+      "state": "ok"
+    },
+    {
+      "step": 17,
+      "rmse": 1.45,
+      "state": "ok"
+    },
+    {
+      "step": 18,
+      "rmse": 1.452,
+      "state": "ok"
+    },
+    {
+      "step": 19,
+      "rmse": 1.422,
+      "state": "ok"
+    },
+    {
+      "step": 20,
+      "rmse": 1.336,
+      "state": "ok"
+    },
+    {
+      "step": 21,
+      "rmse": 1.432,
+      "state": "ok"
+    },
+    {
+      "step": 22,
+      "rmse": 1.437,
+      "state": "ok"
+    },
+    {
+      "step": 23,
+      "rmse": 1.482,
+      "state": "drift_detected"
+    }
+  ],
+  "decisions": [
+    {
+      "step": 10,
+      "kind": "promoted",
+      "candidate_rmse": 1.3836,
+      "incumbent_rmse": 6.7176,
+      "improvement": 0.794
+    },
+    {
+      "step": 23,
+      "kind": "rolled_back",
+      "candidate_rmse": 1.5398,
+      "incumbent_rmse": 1.4629,
+      "improvement": -0.0526
+    }
+  ]
+}
