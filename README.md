@@ -20,8 +20,11 @@
 </p>
 
 <p align="center">
-  <!-- Record a 10–15s GIF: press "Inject drift & run" and watch RMSE spike then self-heal. Save to docs/demo.gif -->
-  <img src="docs/demo.gif" alt="DriftGuard self-healing demo" width="760">
+  <a href="https://maxmilliamokafor.github.io/driftguard/">
+    <img src="docs/preview.svg" alt="DriftGuard self-healing demo preview — click to open" width="760">
+  </a>
+  <br>
+  <em><a href="https://maxmilliamokafor.github.io/driftguard/">▶ Open the live demo</a> — replay the drift event and watch the model self-heal.</em>
 </p>
 
 ---
