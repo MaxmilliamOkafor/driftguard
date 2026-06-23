@@ -1,0 +1,21 @@
+[project]
+name = "driftguard"
+version = "0.1.0"
+description = "A self-healing MLOps platform: monitor, retrain, validate, promote/rollback — automatically."
+requires-python = ">=3.11"
+license = { text = "MIT" }
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "C4"]
+ignore = ["B008"]
+
+[tool.black]
+line-length = 100
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]

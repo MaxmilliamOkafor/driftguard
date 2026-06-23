@@ -1,0 +1,14 @@
+{
+  "baseline_rmse": 1.2178,
+  "drift_injected_step": 10,
+  "drift_detected_step": 10,
+  "recovered_step": 10,
+  "detection_lead_time": 0,
+  "recovery_time": 0,
+  "rmse_after_recovery": 1.3836,
+  "performance_retained_pct": 88.0,
+  "human_interventions": 0,
+  "n_versions": 3,
+  "incumbent_rmse_at_drift": 6.381,
+  "n_events": 29
+}

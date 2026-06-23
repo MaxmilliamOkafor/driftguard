@@ -1,0 +1,2 @@
+# Rich drift HTML reports for human inspection (automation does not depend on it).
+evidently>=0.4

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>DriftGuard — Live Demo</title>
+<style>
+  :root{--bg:#0d1117;--card:#161b22;--bd:#30363d;--tx:#e6edf3;--mut:#8b949e;--accent:#58a6ff;--ok:#3fb950;--bad:#f85149;--warn:#d29922}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--tx);line-height:1.5}
+  .wrap{max-width:900px;margin:0 auto;padding:32px 20px 64px}
+  h1{font-size:30px;margin:0 0 4px}.sub{color:var(--mut);margin:0 0 18px}
+  .card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:20px;margin:18px 0}
+  button{background:var(--accent);color:#0d1117;border:0;border-radius:8px;padding:10px 18px;font-weight:600;cursor:pointer;font-size:15px}
+  .grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+  @media(max-width:760px){.grid{grid-template-columns:repeat(2,1fr)}}
+  .k{color:var(--mut);font-size:11px;text-transform:uppercase;letter-spacing:.03em}.v{font-size:22px;font-weight:700}
+  .badges img{height:20px;margin-right:6px} a{color:var(--accent)}
+  table{width:100%;border-collapse:collapse;font-size:14px;margin-top:8px}
+  td,th{border-bottom:1px solid var(--bd);padding:6px 8px;text-align:left}
+  .ok{color:var(--ok)}.bad{color:var(--bad)}
+  footer{color:var(--mut);font-size:13px;margin-top:28px;text-align:center}
+  canvas{width:100%;height:300px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🛡️ DriftGuard</h1>
+  <p class="sub">Self-healing MLOps: detect drift → retrain → validate → promote or roll back. <b>No human in the loop.</b> Press the button to watch a recorded self-heal play out.</p>
+  <div class="badges">
+    <a href="https://github.com/MaxmilliamOkafor/driftguard"><img src="https://img.shields.io/badge/code-GitHub-181717?logo=github"></a>
+    <img src="https://img.shields.io/badge/detection-0_step_lead-3fb950">
+    <img src="https://img.shields.io/badge/perf_retained-88%25-3fb950">
+    <img src="https://img.shields.io/badge/human_interventions-0-3fb950">
+  </div>
+
+  <div class="card">
+    <button onclick="play()">💥 Replay drift &amp; self-heal</button>
+    <canvas id="cv" width="860" height="300"></canvas>
+    <p class="sub" style="font-size:13px"><span class="bad">●</span> drift injected &nbsp; <span style="color:var(--warn)">– – –</span> drift threshold &nbsp; <span class="ok">●</span> healthy</p>
+  </div>
+
+  <div class="card">
+    <div class="grid" id="metrics"></div>
+  </div>
+
+  <div class="card">
+    <b>Healing decisions (recorded run)</b>
+    <table id="dec"><thead><tr><th>Step</th><th>Decision</th><th>Candidate RMSE</th><th>Incumbent RMSE</th><th>Improvement</th></tr></thead><tbody></tbody></table>
+    <p class="sub" style="font-size:13px;margin-top:8px">Note the rollback: when a retrain wasn't actually better, DriftGuard <b>kept the incumbent</b> — the safety path, not just the promote path.</p>
+  </div>
+
+  <footer><a href="https://github.com/MaxmilliamOkafor/driftguard">Source code</a> · <a href="https://github.com/MaxmilliamOkafor/driftguard/blob/main/README.md">README</a> · Built by Maxmilliam Okafor</footer>
+</div>
+<script>
+let DATA=null;
+fetch('../results/timeline.json').then(r=>r.json()).then(d=>{DATA=d;init()}).catch(()=>{init()});
+function init(){
+  if(!DATA){document.getElementById('metrics').innerHTML='<div class="sub">results/timeline.json not found.</div>';return}
+  const s=DATA.summary;
+  const m=[["Baseline RMSE",s.baseline_rmse],["Detection lead",s.detection_lead_time+" steps"],["Recovery time",s.recovery_time+" steps"],["Perf retained",s.performance_retained_pct+"%"],["Interventions",s.human_interventions]];
+  document.getElementById('metrics').innerHTML=m.map(x=>`<div><div class="k">${x[0]}</div><div class="v">${x[1]}</div></div>`).join("");
+  const tb=document.querySelector('#dec tbody');
+  tb.innerHTML=DATA.decisions.map(d=>`<tr><td>${d.step}</td><td class="${d.kind==='promoted'?'ok':'bad'}">${d.kind}</td><td>${d.candidate_rmse}</td><td>${d.incumbent_rmse}</td><td>${(d.improvement>0?'+':'')+ (d.improvement*100).toFixed(1)}%</td></tr>`).join("");
+  draw(DATA.series.length);
+}
+function draw(n){
+  const c=document.getElementById('cv'),x=c.getContext('2d');const W=c.width,H=c.height,pad=40;
+  x.clearRect(0,0,W,H);const s=DATA.series.slice(0,n);if(!s.length)return;
+  const maxR=7,minR=0,maxS=DATA.series.length-1;
+  const X=i=>pad+i/maxS*(W-pad*1.5), Y=r=>H-pad-(r-minR)/(maxR-minR)*(H-pad*1.6);
+  // threshold line
+  const thr=DATA.summary.baseline_rmse*1.25;
+  x.strokeStyle="#d29922";x.setLineDash([6,5]);x.beginPath();x.moveTo(pad,Y(thr));x.lineTo(W-pad*0.5,Y(thr));x.stroke();x.setLineDash([]);
+  // drift marker
+  const di=DATA.summary.drift_injected_step;
+  x.strokeStyle="#f85149";x.beginPath();x.moveTo(X(di),pad*0.5);x.lineTo(X(di),H-pad);x.stroke();
+  // axes labels
+  x.fillStyle="#8b949e";x.font="12px sans-serif";x.fillText("RMSE",6,16);x.fillText("step",W-34,H-12);
+  // line
+  x.lineWidth=2;
+  for(let i=1;i<s.length;i++){x.strokeStyle=s[i].state==='drift_detected'?'#f85149':'#3fb950';x.beginPath();x.moveTo(X(s[i-1].step),Y(s[i-1].rmse));x.lineTo(X(s[i].step),Y(s[i].rmse));x.stroke();}
+  s.forEach(p=>{x.fillStyle=p.state==='drift_detected'?'#f85149':'#3fb950';x.beginPath();x.arc(X(p.step),Y(p.rmse),3.5,0,7);x.fill();});
+}
+function play(){let n=1;const t=setInterval(()=>{draw(n);n++;if(n>DATA.series.length)clearInterval(t);},90);}
+</script>
+</body>
+</html>
